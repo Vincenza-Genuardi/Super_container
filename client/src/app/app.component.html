@@ -1,0 +1,30 @@
+<h1>Lista Prodotti Magazzino</h1>
+<ul>
+    <li *ngFor="let prodotto of data">
+        ID: {{ prodotto.id }} - Nome: {{ prodotto.nome }} - Categoria: {{ prodotto.categoria }} - Quantita: {{ prodotto.quantita }} - Prezzo Unitario: {{ prodotto.prezzo_unitario }}
+    </li>
+</ul>
+<section>
+    <h1>Form Reactivo Esempio:</h1>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <p>
+            <label>Nome Prodotto</label>
+            <input type="text" formControlName="nome">
+        </p>
+        <p>
+            <label>Categoria Prodotto</label>
+            <input type="text" formControlName="categoria">
+        </p>
+        <p>
+            <label>Quantità</label>
+            <input type="number" formControlName="quantita">
+        </p>
+        <p>
+            <label>Prezzo Unitario</label>
+            <input type="number" formControlName="prezzo_unitario">
+        </p>
+        <p>
+            <button type="submit">Invia</button>
+        </p>
+    </form>
+</section>

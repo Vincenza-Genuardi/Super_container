@@ -1,0 +1,38 @@
+version: '3.7'
+services:
+  client:
+      build:
+        dockerfile: Dockerfile
+        context: ./client
+      volumes:
+      
+        - /app/node_modules 
+    
+        - ./client:/app
+      ports:
+        - 4200:4200
+  server:
+      environment:            
+      - MONGO_INITDB_DATABASE=magazzino_db
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=pass
+      build:
+        dockerfile: Dockerfile
+        context: ./server
+      container_name: api-server
+      volumes:
+        - ./server:/app
+      ports:
+        - 5000:5000
+  mongo-server:
+    image: mongo:latest     
+    hostname: test_mongodb  
+    environment:            #setta alcune variabili d'ambiente
+      - MONGO_INITDB_DATABASE=magazzino_db
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=pass
+    volumes:
+      - ./mongo-server/init-db.js:/docker-entrypoint-initdb.d/init-db.js:ro    
+    ports:
+      - 27017:27017
+      
