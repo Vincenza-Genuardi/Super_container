@@ -1,0 +1,58 @@
+version: '3.7'
+
+services:
+  client:
+      build:
+        dockerfile: Dockerfile.prod
+        context: ./client
+      volumes:
+        - /app/node_modules 
+        - ./client:/app 
+      environment:
+        - NG_APP_GITPOD_WORKSPACE_URL=${GITPOD_WORKSPACE_URL}
+      ports:
+        - 4200:4200
+      networks:
+      - shared-network
+  api-server:
+      build:
+        dockerfile: Dockerfile
+        context: ./server
+      environment:           
+      - MONGO_INITDB_DATABASE=magazzino_db
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=pass
+      
+      volumes:
+        - ./server:/app
+      ports:
+        - 5000:5000
+      networks:
+      - shared-network
+  nginx-proxy:
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: ./nginx
+    ports: 
+      - 8080:8080
+    networks:
+      - shared-network
+  mongo-server:
+    image: mongo:latest     
+    hostname: test_mongodb  
+    environment:           
+      - MONGO_INITDB_DATABASE=magazzino_db
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=pass
+    volumes:
+      - ./mongo-server/init-db.js:/docker-entrypoint-initdb.d/init-db.js:ro    
+    ports:
+      - 27017:27017
+    networks:
+      - shared-network
+networks:
+  shared-network:
+    
+
+      
