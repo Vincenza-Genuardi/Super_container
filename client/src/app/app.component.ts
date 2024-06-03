@@ -11,11 +11,28 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class AppComponent {
   title = 'client';
-  data: Prodotto[] = [];
+  data!: Prodotto[];
+
+
+  showForm = false;
+
+  openForm() { 
+    this.showForm = true;
+  }
+
+  closeForm() { 
+    this.showForm = false;
+  }
 
   constructor(private prodottiService: ProdottiService) {
     this.prodottiService.getMagazzino().subscribe(
-      (data: any) => { this.data = data['magazzino']; }
+      (data: Prodotto[]) => { 
+        this.data = data; 
+        console.log(data); 
+      },
+      (error) => {
+        console.error("Errore durante il recupero dei dati:", error);
+      }
     );
   }
 

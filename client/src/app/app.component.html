@@ -1,30 +1,57 @@
-<h1>Lista Prodotti Magazzino</h1>
-<ul>
-    <li *ngFor="let prodotto of data">
-        ID: {{ prodotto.id }} - Nome: {{ prodotto.nome }} - Categoria: {{ prodotto.categoria }} - Quantita: {{ prodotto.quantita }} - Prezzo Unitario: {{ prodotto.prezzo_unitario }}
-    </li>
-</ul>
-<section>
-    <h1>Form Reactivo Esempio:</h1>
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
-        <p>
-            <label>Nome Prodotto</label>
-            <input type="text" formControlName="nome">
-        </p>
-        <p>
-            <label>Categoria Prodotto</label>
-            <input type="text" formControlName="categoria">
-        </p>
-        <p>
-            <label>Quantità</label>
-            <input type="number" formControlName="quantita">
-        </p>
-        <p>
-            <label>Prezzo Unitario</label>
-            <input type="number" formControlName="prezzo_unitario">
-        </p>
-        <p>
-            <button type="submit">Invia</button>
-        </p>
-    </form>
-</section>
+<!-- app.component.html -->
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col">
+            <h1 class="text-center mt-4">Inventario Magazzino</h1>
+
+            <table class="inventory-table">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Categoria</th>
+                        <th>Quantità</th>
+                        <th>Prezzo Unitario</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngFor="let prodotto of data; let i = index">
+                        <tr [class.even-row]="i % 2 === 0" [class.odd-row]="i % 2 !== 0">
+                            <td>{{ prodotto.nome }}</td>
+                            <td>{{ prodotto.categoria }}</td>
+                            <td>{{ prodotto.quantita }}</td>
+                            <td>{{ prodotto.prezzo_unitario }}</td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+            </table>
+
+
+            <button class="add-product-btn" (click)="openForm()">Aggiungi Prodotto</button>
+
+        
+            <div *ngIf="showForm" class="add-product-form">
+                <h2>Aggiungi Nuovo Prodotto</h2>
+                <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                        <label for="nome">Nome Prodotto</label>
+                        <input type="text" id="nome" class="form-control" formControlName="nome">
+                    </div>
+                    <div class="form-group">
+                        <label for="categoria">Categoria Prodotto</label>
+                        <input type="text" id="categoria" class="form-control" formControlName="categoria">
+                    </div>
+                    <div class="form-group">
+                        <label for="quantita">Quantità</label>
+                        <input type="number" id="quantita" class="form-control" formControlName="quantita">
+                    </div>
+                    <div class="form-group">
+                        <label for="prezzo_unitario">Prezzo Unitario</label>
+                        <input type="number" id="prezzo_unitario" class="form-control" formControlName="prezzo_unitario">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Aggiungi Prodotto</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

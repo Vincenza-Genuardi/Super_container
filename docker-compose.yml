@@ -1,4 +1,5 @@
 version: '3.7'
+
 services:
   client:
       build:
@@ -11,23 +12,36 @@ services:
         - ./client:/app
       ports:
         - 4200:4200
-  server:
-      environment:            
-      - MONGO_INITDB_DATABASE=magazzino_db
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=pass
+      networks:
+      - shared-network
+  api-server:
       build:
         dockerfile: Dockerfile
         context: ./server
-      container_name: api-server
+      environment:           
+      - MONGO_INITDB_DATABASE=magazzino_db
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=pass
+      
       volumes:
         - ./server:/app
       ports:
         - 5000:5000
+      networks:
+      - shared-network
+  nginx-proxy:
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: ./nginx
+    ports: 
+      - 8080:8080
+    networks:
+      - shared-network
   mongo-server:
     image: mongo:latest     
     hostname: test_mongodb  
-    environment:            #setta alcune variabili d'ambiente
+    environment:           
       - MONGO_INITDB_DATABASE=magazzino_db
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=pass
@@ -35,4 +49,10 @@ services:
       - ./mongo-server/init-db.js:/docker-entrypoint-initdb.d/init-db.js:ro    
     ports:
       - 27017:27017
+    networks:
+      - shared-network
+networks:
+  shared-network:
+    
+
       

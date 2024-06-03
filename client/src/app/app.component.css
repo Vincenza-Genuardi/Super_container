@@ -1,0 +1,84 @@
+/* styles.css */
+.inventory-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.inventory-table th, .inventory-table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+}
+
+.inventory-table th {
+    background-color: #f2f2f2;
+    text-align: left;
+}
+
+.even-row {
+    background-color: #f9f9f9;
+}
+
+.odd-row {
+    background-color: #ffffff;
+}
+
+.add-product-btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+}
+
+.add-product-btn:hover {
+    background-color: #0056b3;
+}
+/* styles.css */
+.add-product-form {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    text-align: center; /* Centra il testo all'interno della form */
+}
+
+.add-product-form h2 {
+    margin-bottom: 20px;
+    text-align: center; /* Centra il testo del titolo */
+}
+
+.add-product-form .form-group {
+    margin-bottom: 20px;
+    text-align: left; /* Allinea il testo degli input a sinistra */
+}
+
+.add-product-form label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.add-product-form input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.add-product-btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+}
+
+.add-product-btn:hover {
+    background-color: #0056b3;
+}
+
